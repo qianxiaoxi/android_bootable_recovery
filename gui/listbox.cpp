@@ -62,15 +62,30 @@ GUIListBox::GUIListBox(xml_node<>* node) : GUIScrollList(node)
 		allowSelection = false;		// allows using listbox as a read-only list
 
 	// Get the data for the list
+    //example: <listitem id="utc-9" name="(UTC -9) Alaska">AST9;ADT</listitem>
 	child = FindNode(node, "listitem");
 	if (!child) return;
 	while (child) {
 		ListData data;
-
-		attr = child->first_attribute("name");
-		if (!attr)
+        //
+        xml_attribute<>* id = child->first_attribute("id");
+        //if id not null , next_attribute -> name
+        if (id) {
+        attr = id->next_attribute("name");
+        //get translate from language.xml
+        data.displayName = LanguageManager::parse(id->value());
+        if(data.displayName == "")
+            data.displayName = attr->value();
+        //LOGERR("DisplayName = %s\n",data.displayName.c_str());
+        } else {
+            attr = child->first_attribute("name");
+           if(attr)
 			continue;
 		data.displayName = gui_parse_text(attr->value());
+           //LOGERR("DisplayName = %s\n",data.displayName.c_str());
+        }
+
+
 		data.variableValue = gui_parse_text(child->value());
 		if (child->value() == currentValue) {
 			data.selected = 1;

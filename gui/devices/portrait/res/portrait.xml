@@ -162,6 +162,15 @@
 				<action function="page">reboot</action>
 			</object>
 
+			<object type="button" style="fillbutton">
+				<highlight color="%highlight_color%" />
+				<fill color="%button_fill_color%" />
+				<placement x="%col1_x%" y="1680" w="%button_fill_full_width%" h="%button_fill_quarter_height%" />
+				<font resource="font" color="%text_success_color%" />
+				<text>Select Language</text>
+				<action function="page">language_reload</action>
+			</object>
+
 			<object type="template" name="footer" />
 		</page>
 
@@ -2666,6 +2675,12 @@
 			</object>
 
 			<object type="button">
+				<placement x="%col2_x%" y="%row4_y%" />
+				<text>Advanced Tools</text>
+				<action function="page">advancedtools</action>
+			</object>
+
+			<object type="button">
 				<condition var1="tw_show_dumlock" var2="1" />
 				<placement x="%col2_x%" y="%row4_y%" />
 				<text>HTC Dumlock</text>
@@ -2695,6 +2710,41 @@
 			<object type="action">
 				<touch key="back" />
 				<action function="page">main</action>
+			</object>
+
+			<object type="template" name="footer" />
+		</page>
+
+		<page name="advancedtools">
+			<object type="template" name="header" />
+
+			<object type="text">
+				<placement x="%center_x%" y="%row1_header_y%" placement="5" />
+				<text>Advanced Tools</text>
+			</object>
+
+			<object type="button">
+				<placement x="%col1_x%" y="%row1_y%" />
+				<text>Root</text>
+				<actions>
+					<action function="set">tw_back=advancedtools</action>
+					<action function="set">tw_action=installsu</action>
+					<action function="set">tw_text1=Root your device?</action>
+					<action function="set">tw_action_text1=Rooting your device...</action>
+					<action function="set">tw_complete_text1=Root Complete</action>
+					<action function="set">tw_slider_text=Swipe to Confirm</action>
+					<action function="page">confirm_action</action>
+				</actions>
+			</object>
+
+			<object type="action">
+				<touch key="home" />
+				<action function="page">main</action>
+			</object>
+
+			<object type="action">
+				<touch key="back" />
+				<action function="page">advanced</action>
 			</object>
 
 			<object type="template" name="footer" />
